@@ -5,6 +5,7 @@ const URL = 'http://localhost:3003/api/debts'
 export const changeDescription = event => ({
     type: 'DESCRIPTION_CHANGED', payload: event.target.value
 })
+
 export const changeDebtor = event => ({
     type: 'DEBTOR_CHANGED', payload: event.target.value
 })
@@ -24,9 +25,9 @@ export const search = () => {
     }
 }
 
-export const add = (description) => {
+export const add = (description, value, date, debtor) => {
     return dispatch => {
-        axios.post(URL, { description })
+        axios.post(URL, { description, value, date, debtor })
             .then(resp => dispatch({ type: 'DEBT_ADDED' }))
             .then(resp => dispatch(clear()))
     }

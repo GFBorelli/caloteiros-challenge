@@ -22,7 +22,6 @@ class DebtForm extends Component {
             .then(data => this.setState({ list: data }))
     }
 
-
     render() {
         const renderDebtor = () => {
 
