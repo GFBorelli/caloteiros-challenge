@@ -1,0 +1,11 @@
+.pageHeader > h2 > small{
+ color: gray;
+}
+
+.tableActions{
+  width: 140px;
+}
+
+.tableTime{
+  width: 160px;
+}
