@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { changeDebtor, changeDate, changeValue, changeDescription, search, add, clear } from './debtActions'
+import { search, add, edit, clear, changeDebtor, changeDate, changeValue, changeDescription } from './debtActions'
 
 import { Col, Form, Button } from 'react-bootstrap'
 
 const API = 'https://jsonplaceholder.typicode.com/users'
+
 
 class DebtForm extends Component {
 
@@ -23,18 +24,23 @@ class DebtForm extends Component {
     }
 
     render() {
-        const renderDebtor = () => {
 
+        const renderDebtor = () => {
             return this.state.list.map(debtor => (
                 <option key={debtor.id}>{debtor.name}</option>
             ))
         }
 
-        const { add, description, value, date, debtor, clear } = this.props
+        const { add, edit, clear, description, value, date, id, debtor, showEdit } = this.props
+
+        const showSubmitButton = showEdit ? 'd-none' : ''
+        const showEditButton = showEdit ? '' : 'd-none'
+
+
         return (
             <Form className='mt-3 mb-4' >
                 <Form.Row>
-                    <Col xs='12' sm='7' md='8'>
+                    <Col>
                         <Form.Group>
                             <Form.Label>Motivo</Form.Label>
                             <Form.Control
@@ -44,7 +50,9 @@ class DebtForm extends Component {
                             />
                         </Form.Group>
                     </Col>
+                </Form.Row>
 
+                <Form.Row>
                     <Col xs='12' sm='5' md='4'>
                         <Form.Group>
                             <Form.Label>Valor</Form.Label>
@@ -55,9 +63,7 @@ class DebtForm extends Component {
                             />
                         </Form.Group>
                     </Col>
-                </Form.Row>
 
-                <Form.Row>
                     <Col>
                         <Form.Group>
                             <Form.Label>Data</Form.Label>
@@ -80,14 +86,14 @@ class DebtForm extends Component {
                             </Form.Control>
                         </Form.Group>
                     </Col>
+                </Form.Row>
 
-                    <Col className='mt-2' xs='12' sm='5' md='4'>
-                        <Form.Group>
-                            <br />
-                            <Button className='mb-1' variant='primary' onClick={() => add(description, value, date, debtor)}> Incluir dívida </Button>{' '}
-                            <Button className='mb-1' variant='secondary' onClick={clear}> Limpar formulário </Button>
-                        </Form.Group>
-                    </Col>
+                <Form.Row>
+                    <Form.Group>
+                        <Button className={`${showSubmitButton} mt-1`} variant='primary' onClick={() => add(description, value, date, debtor)}> Incluir dívida </Button>{' '}
+                        <Button className={`${showEditButton} mt-1`} variant='warning' onClick={() => edit(id, description, value, date, debtor)}> Editar dívida </Button>{' '}
+                        <Button className='mt-1' variant='secondary' onClick={clear}> Limpar formulário</Button>
+                    </Form.Group>
                 </Form.Row>
             </Form>
         )
@@ -99,8 +105,19 @@ const mapStateToProps = state => ({
     description: state.debt.description,
     value: state.debt.value,
     date: state.debt.date,
-    debtor: state.debt.debtor
+    id: state.debt.id,
+    debtor: state.debt.debtor,
+    showEdit: state.debt.showEdit
 })
-const mapDispatchToProps = dispatch => bindActionCreators({ changeDebtor, changeDate, changeValue, changeDescription, search, add, clear }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    search,
+    add,
+    edit,
+    clear,
+    changeDebtor,
+    changeDate,
+    changeValue,
+    changeDescription
+}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtForm)

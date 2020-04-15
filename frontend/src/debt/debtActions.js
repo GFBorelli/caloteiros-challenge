@@ -25,6 +25,13 @@ export const search = () => {
     }
 }
 
+export const searchOne = (debt) => {
+    return dispatch => {
+        axios.get(`${URL}/${debt._id}`)
+            .then(resp => dispatch({ type: 'DEBT_SEARCHED_ONE', payload: resp.data }))
+    }
+}
+
 export const add = (description, value, date, debtor) => {
     return dispatch => {
         axios.post(URL, { description, value, date, debtor })
@@ -38,6 +45,14 @@ export const remove = (debt) => {
         axios.delete(`${URL}/${debt._id}`)
             .then(resp => dispatch({ type: 'DEBT_REMOVE' }))
             .then(resp => dispatch(search()))
+    }
+}
+
+export const edit = (id, description, value, date, debtor) => {
+    return dispatch => {
+        axios.put(`${URL}/${id}`, { description, value, date, debtor })
+            .then(resp => dispatch({ type: 'DEBT_EDITED' }))
+            .then(resp => dispatch(clear()))
     }
 }
 

@@ -2,10 +2,10 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { remove } from './debtActions'
+import { searchOne, remove } from './debtActions'
 
 import { Table, Button } from 'react-bootstrap'
-import { FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
 
 const DebtList = props => {
 
@@ -18,6 +18,7 @@ const DebtList = props => {
                 <td>{debt.value}</td>
                 <td>{debt.debtor}</td>
                 <td>
+                    <Button variant='warning' onClick={() => props.searchOne(debt)}> <FaPencilAlt /> </Button>{' '}
                     <Button variant='danger' onClick={() => props.remove(debt)}> <FaTrashAlt /> </Button>
                 </td>
             </tr>
@@ -43,6 +44,6 @@ const DebtList = props => {
 }
 
 const mapStateToProps = state => ({ list: state.debt.list })
-const mapDispathToProps = dispatch => bindActionCreators({ remove }, dispatch)
+const mapDispathToProps = dispatch => bindActionCreators({ searchOne, remove }, dispatch)
 
 export default connect(mapStateToProps, mapDispathToProps)(DebtList)
