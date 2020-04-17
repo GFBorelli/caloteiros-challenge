@@ -2,7 +2,10 @@ const INITIAL_STATE = {
     description: '',
     value: '',
     date: '',
+    debtorId: '',
     debtor: '',
+    debtorToShow:'',
+    debtorList: [],
     id: '',
     list: [],
     showEdit: false
@@ -12,8 +15,10 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'DEBT_SEARCHED':
             return { ...state, list: action.payload }
+        case 'DEBTORS_SEARCHED':
+            return { ...state, debtorList: action.payload }
         case 'DEBT_CLEAR':
-            return { ...state, description: '', value: '', date: '', debtor: '', showEdit: false }
+            return { ...state, id: '', description: '', value: '', date: '', debtor: '', showEdit: false }
         case 'DEBT_SEARCHED_ONE':
             return {
                 ...state,
@@ -32,6 +37,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, value: action.payload }
         case 'DATE_CHANGED':
             return { ...state, date: action.payload }
+        case 'DEBTOR_TO_SHOW_CHANGED':
+            return { ...state, debtorToShow: action.payload }
         default:
             return state
     }

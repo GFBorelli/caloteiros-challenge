@@ -2,40 +2,28 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { search, add, edit, clear, changeDebtor, changeDate, changeValue, changeDescription } from './debtActions'
+import { search, debtorSearch, add, edit, clear, changeDebtor, changeDate, changeValue, changeDescription } from './debtActions'
 
 import { Col, Form, Button } from 'react-bootstrap'
 
-const API = 'https://jsonplaceholder.typicode.com/users'
-
-
 class DebtForm extends Component {
-
-    state = {
-        list: []
-    }
 
     componentDidMount() {
         this.props.search()
-
-        fetch(API)
-            .then(res => res.json())
-            .then(data => this.setState({ list: data }))
+        this.props.debtorSearch()
     }
 
     render() {
+        const { add, edit, clear, description, value, date, id, debtor, showEdit, debtorList } = this.props
 
         const renderDebtor = () => {
-            return this.state.list.map(debtor => (
+            return debtorList.map(debtor => (
                 <option key={debtor.id}>{debtor.name}</option>
             ))
         }
 
-        const { add, edit, clear, description, value, date, id, debtor, showEdit } = this.props
-
         const showSubmitButton = showEdit ? 'd-none' : ''
         const showEditButton = showEdit ? '' : 'd-none'
-
 
         return (
             <Form className='mt-3 mb-4' >
@@ -100,17 +88,18 @@ class DebtForm extends Component {
     }
 }
 
-
 const mapStateToProps = state => ({
     description: state.debt.description,
     value: state.debt.value,
     date: state.debt.date,
     id: state.debt.id,
     debtor: state.debt.debtor,
+    debtorList: state.debt.debtorList,
     showEdit: state.debt.showEdit
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
     search,
+    debtorSearch,
     add,
     edit,
     clear,
