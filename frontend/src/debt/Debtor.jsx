@@ -17,30 +17,17 @@ class Debtor extends Component {
         return (
             <div>
                 <Form>
-                    <Row>
-                        <Col>
-                            <Form.Group as={Row}>
-                                <Form.Label column sm="3">Débitos de:</Form.Label>
-                                <Col sm="9">
-                                    <Form.Control as="select" size='sm'
-                                        onChange={this.props.changeDebtorToShow}
-                                        value={this.props.debtorToShow}>
-                                        <option></option>
-                                        {renderDebtors()}
-                                    </Form.Control>
-                                </Col>
-                            </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="2">Exibir débitos de:</Form.Label>
+                        <Col sm="3">
+                            <Form.Control as="select" size='sm'
+                                onChange={this.props.changeDebtorToShow}
+                                value={this.props.debtorToShow}>
+                                <option></option>
+                                {renderDebtors()}
+                            </Form.Control>
                         </Col>
-
-                        <Col>
-                            <Form.Group as={Row} controlId="formPlaintextEmail">
-                                <Form.Label column sm="3">Valor devido: </Form.Label>
-                                <Col sm="9">
-                                    <Form.Control plaintext readOnly defaultValue="x" />
-                                </Col>
-                            </Form.Group>
-                        </Col>
-                    </Row>
+                    </Form.Group>
                 </Form>
             </div>
         )

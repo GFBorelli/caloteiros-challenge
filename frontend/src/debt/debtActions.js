@@ -61,6 +61,10 @@ export const changeDebtor = event => ({
     type: 'DEBTOR_CHANGED', payload: event.target.value
 })
 
+export const changeDebtorId = (id) => ({
+    type: 'DEBTOR_ID_CHANGED', payload: id
+})
+
 export const changeValue = event => ({
     type: 'VALUE_CHANGED', payload: event.target.value
 })

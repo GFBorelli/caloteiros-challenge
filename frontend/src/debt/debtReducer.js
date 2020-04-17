@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     date: '',
     debtorId: '',
     debtor: '',
-    debtorToShow:'',
+    debtorToShow: '',
     debtorList: [],
     id: '',
     list: [],
@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'DEBTORS_SEARCHED':
             return { ...state, debtorList: action.payload }
         case 'DEBT_CLEAR':
-            return { ...state, id: '', description: '', value: '', date: '', debtor: '', showEdit: false }
+            return { ...state, id: '', description: '', value: '', date: '', debtor: '', debtorId: '', showEdit: false }
         case 'DEBT_SEARCHED_ONE':
             return {
                 ...state,
@@ -27,12 +27,15 @@ export default (state = INITIAL_STATE, action) => {
                 date: action.payload.date,
                 id: action.payload._id,
                 debtor: action.payload.debtor,
+                debtorId: action.payload.debtorId,
                 showEdit: true
             }
         case 'DESCRIPTION_CHANGED':
             return { ...state, description: action.payload }
         case 'DEBTOR_CHANGED':
             return { ...state, debtor: action.payload }
+        case 'DEBTOR_ID_CHANGED':
+            return { ...state, debtorId: action.payload }
         case 'VALUE_CHANGED':
             return { ...state, value: action.payload }
         case 'DATE_CHANGED':
