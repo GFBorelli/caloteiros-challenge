@@ -1,5 +1,5 @@
 <h1 align="center">
-	Flex Challenge
+	Debtors Register
 </h1>
 
 <br>
